@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const CubeScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -22,11 +23,11 @@ class MyApp extends StatelessWidget {
 class CubeState {
   List<List<Color>> faces = [
     [Colors.red, Colors.red, Colors.red, Colors.red], // Front
-    [Colors.blue, Colors.blue, Colors.blue, Colors.blue], // Left
-    [Colors.green, Colors.green, Colors.green, Colors.green], // Right
-    [Colors.yellow, Colors.yellow, Colors.yellow, Colors.yellow], // Back
-    [Colors.orange, Colors.orange, Colors.orange, Colors.orange], // Top
-    [Colors.white, Colors.white, Colors.white, Colors.white], // Bottom
+    [Colors.green, Colors.green, Colors.green, Colors.green], // Left
+    [Colors.blue, Colors.blue, Colors.blue, Colors.blue], // Right
+    [Colors.orange, Colors.orange, Colors.orange, Colors.orange], // rear
+    [Colors.white, Colors.white, Colors.white, Colors.white], // Top
+    [Colors.yellow, Colors.yellow, Colors.yellow, Colors.yellow], // Bottom
   ];
 
   // Rotate top face to the left, modify if necessary
@@ -95,82 +96,87 @@ class _CubeScreenState extends State<CubeScreen> {
           )
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Top face
-            Column(
-              children: [
-                const Text('Top'),
-                SizedBox(
-                  height: 100,
-                  width: 100,
-                  child: buildFace(cube.faces[4]),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Left face
-                Column(
-                  children: [
-                    const Text('Left'),
-                    SizedBox(
-                      height: 100,
-                      width: 100,
-                      child: buildFace(cube.faces[1]),
-                    ),
-                  ],
-                ),
-                // Front face
-                Column(
-                  children: [
-                    const Text('Front'),
-                    SizedBox(
-                      height: 100,
-                      width: 100,
-                      child: buildFace(cube.faces[0]),
-                    ),
-                  ],
-                ),
-                // Right face
-                Column(
-                  children: [
-                    const Text('Right'),
-                    SizedBox(
-                      height: 100,
-                      width: 100,
-                      child: buildFace(cube.faces[2]),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            // Bottom face
-            Column(
-              children: [
-                const Text('Bottom'),
-                SizedBox(
-                  height: 100,
-                  width: 100,
-                  child: buildFace(cube.faces[5]),
-                ),
-              ],
-            ),
-            // Rear face
-            Column(
-              children: [
-                const Text('Back'),
-                SizedBox(
-                  height: 100,
-                  width: 100,
-                  child: buildFace(cube.faces[3]),
-                ),
-              ],
-            ),
-          ],
+      body: Container(
+        color: const Color(0xFF1B1B1B), // background color
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Top face
+              Column(
+                children: [
+                  const Text('Top', style: TextStyle(color: Colors.white)),
+                  SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: buildFace(cube.faces[4]),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Left face
+                  Column(
+                    children: [
+                      const Text('Left', style: TextStyle(color: Colors.white)),
+                      SizedBox(
+                        height: 100,
+                        width: 100,
+                        child: buildFace(cube.faces[1]),
+                      ),
+                    ],
+                  ),
+                  // Front face
+                  Column(
+                    children: [
+                      const Text('Front',
+                          style: TextStyle(color: Colors.white)),
+                      SizedBox(
+                        height: 100,
+                        width: 100,
+                        child: buildFace(cube.faces[0]),
+                      ),
+                    ],
+                  ),
+                  // Right face
+                  Column(
+                    children: [
+                      const Text('Right',
+                          style: TextStyle(color: Colors.white)),
+                      SizedBox(
+                        height: 100,
+                        width: 100,
+                        child: buildFace(cube.faces[2]),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              // Bottom face
+              Column(
+                children: [
+                  const Text('Bottom', style: TextStyle(color: Colors.white)),
+                  SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: buildFace(cube.faces[5]),
+                  ),
+                ],
+              ),
+              // Rear face
+              Column(
+                children: [
+                  const Text('Back', style: TextStyle(color: Colors.white)),
+                  SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: buildFace(cube.faces[3]),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
