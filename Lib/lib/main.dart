@@ -30,28 +30,76 @@ class CubeState {
     [Colors.yellow, Colors.yellow, Colors.yellow, Colors.yellow], // Bottom
   ];
 
-  // Rotate top face to the left, modify if necessary
+  // Rotate top face to the left
   void rotateTop() {
-    // Store the top row of each face
-    List<Color> topRowFront = [faces[0][0], faces[0][1]];
-    List<Color> topRowLeft = [faces[1][0], faces[1][1]];
-    List<Color> topRowRight = [faces[2][0], faces[2][1]];
-    List<Color> topRowBack = [faces[3][0], faces[3][1]];
-
     // Rotate top face
     List<Color> tempTop = [...faces[4]];
     faces[4] = [tempTop[2], tempTop[3], tempTop[0], tempTop[1]];
 
     // Update adjacent faces
-    faces[0] = [faces[3][2], faces[3][3], ...faces[0].sublist(2)];
-    faces[1] = [faces[0][2], faces[0][3], ...faces[1].sublist(2)];
-    faces[2] = [faces[1][2], faces[1][3], ...faces[2].sublist(2)];
-    faces[3] = [faces[2][2], faces[2][3], ...faces[3].sublist(2)];
+    List<Color> temp = [faces[0][0], faces[0][1]];
+    faces[0][0] = faces[1][0];
+    faces[0][1] = faces[1][1];
+    faces[1][0] = faces[3][0];
+    faces[1][1] = faces[3][1];
+    faces[3][0] = faces[2][0];
+    faces[3][1] = faces[2][1];
+    faces[2][0] = temp[0];
+    faces[2][1] = temp[1];
   }
 
-  // Rotate bottom face to the left, modify if necessary
+  // Rotate bottom face to the left
   void rotateBottom() {
-    // Implement your code here
+    // Rotate bottom face
+    List<Color> tempBottom = [...faces[5]];
+    faces[5] = [tempBottom[2], tempBottom[3], tempBottom[0], tempBottom[1]];
+
+    // Update adjacent faces
+    List<Color> temp = [faces[0][2], faces[0][3]];
+    faces[0][2] = faces[2][2];
+    faces[0][3] = faces[2][3];
+    faces[2][2] = faces[3][2];
+    faces[2][3] = faces[3][3];
+    faces[3][2] = faces[1][2];
+    faces[3][3] = faces[1][3];
+    faces[1][2] = temp[0];
+    faces[1][3] = temp[1];
+  }
+
+  // Rotate left face to the left
+  void rotateLeft() {
+    // Rotate left face
+    List<Color> tempLeft = [...faces[1]];
+    faces[1] = [tempLeft[2], tempLeft[3], tempLeft[0], tempLeft[1]];
+
+    // Update adjacent faces
+    List<Color> temp = [faces[0][0], faces[0][2]];
+    faces[0][0] = faces[4][0];
+    faces[0][2] = faces[4][2];
+    faces[4][0] = faces[3][3];
+    faces[4][2] = faces[3][1];
+    faces[3][3] = faces[5][0];
+    faces[3][1] = faces[5][2];
+    faces[5][0] = temp[0];
+    faces[5][2] = temp[1];
+  }
+
+  // Rotate right face to the left
+  void rotateRight() {
+    // Rotate right face
+    List<Color> tempRight = [...faces[2]];
+    faces[2] = [tempRight[2], tempRight[3], tempRight[0], tempRight[1]];
+
+    // Update adjacent faces
+    List<Color> temp = [faces[0][1], faces[0][3]];
+    faces[0][1] = faces[5][1];
+    faces[0][3] = faces[5][3];
+    faces[5][1] = faces[3][2];
+    faces[5][3] = faces[3][0];
+    faces[3][2] = faces[4][1];
+    faces[3][0] = faces[4][3];
+    faces[4][1] = temp[0];
+    faces[4][3] = temp[1];
   }
 }
 
@@ -68,6 +116,24 @@ class _CubeScreenState extends State<CubeScreen> {
   void rotateTop() {
     setState(() {
       cube.rotateTop();
+    });
+  }
+
+  void rotateBottom() {
+    setState(() {
+      cube.rotateBottom();
+    });
+  }
+
+  void rotateLeft() {
+    setState(() {
+      cube.rotateLeft();
+    });
+  }
+
+  void rotateRight() {
+    setState(() {
+      cube.rotateRight();
     });
   }
 
@@ -172,6 +238,35 @@ class _CubeScreenState extends State<CubeScreen> {
                     height: 100,
                     width: 100,
                     child: buildFace(cube.faces[3]),
+                  ),
+                ],
+              ),
+              // Buttons to rotate the cube
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: rotateLeft,
+                    child: const Text('Rotate Left'),
+                  ),
+                  const SizedBox(width: 10),
+                  ElevatedButton(
+                    onPressed: rotateRight,
+                    child: const Text('Rotate Right'),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: rotateTop,
+                    child: const Text('Rotate Top'),
+                  ),
+                  const SizedBox(width: 10),
+                  ElevatedButton(
+                    onPressed: rotateBottom,
+                    child: const Text('Rotate Bottom'),
                   ),
                 ],
               ),
